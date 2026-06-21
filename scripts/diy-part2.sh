@@ -11,23 +11,22 @@ if [ -f feeds/packages/lang/rust/Makefile ]; then
 fi
 
 echo "Add only the extra packages required by this build"
-rm -rf kiddin9 package/community/luci-app-openclash package/community/luci-app-uugamebooster
-git clone --depth=1 https://github.com/kiddin9/kwrt-packages kiddin9
+rm -rf openclash-src package/community/luci-app-openclash package/community/luci-app-uugamebooster
 mkdir -p package/community
 
-if [ -d kiddin9/luci-app-openclash ]; then
-    cp -rf kiddin9/luci-app-openclash package/community/luci-app-openclash
-fi
+git clone --depth=1 https://github.com/vernesong/OpenClash.git openclash-src
+cp -rf openclash-src/luci-app-openclash package/community/luci-app-openclash
 
-if [ -d kiddin9/luci-app-uugamebooster ]; then
-    cp -rf kiddin9/luci-app-uugamebooster package/community/luci-app-uugamebooster
-fi
+git clone --depth=1 https://github.com/kiddin9/luci-app-uugamebooster.git package/community/luci-app-uugamebooster
 
 echo "Preset OpenClash core for x86_64"
 chmod -R a+x "$GITHUB_WORKSPACE/scripts/preset-clash-core.sh"
+pushd package/community
 if [ "$2" = "x86" ] || [ "$2" = "x86-23.05" ] || [ "$2" = "x86-24.10" ]; then
     "$GITHUB_WORKSPACE/scripts/preset-clash-core.sh" amd64
 fi
+popd
+rm -rf openclash-src
 
 cat >> .config <<'EOF'
 # Keep the image focused: no all-kmods/devel build.
