@@ -198,6 +198,17 @@ if [ "$1" = "istoreos-22.03" ]; then
     cp -rf ../../MyConfig/configs/istoreos/general/applications/luci-app-openclash/* luci-app-openclash
 fi
 #加入OpenClash核心
+if [ ! -d luci-app-openclash ] && [ -d ../../kiddin9/luci-app-openclash ]; then
+    mkdir -p luci-app-openclash
+    cp -rf ../../kiddin9/luci-app-openclash/* luci-app-openclash
+    [ -d ../../MyConfig/configs/istoreos/general/applications/luci-app-openclash ] && cp -rf ../../MyConfig/configs/istoreos/general/applications/luci-app-openclash/* luci-app-openclash
+fi
+
+if [ -d ../../kiddin9/luci-app-uugamebooster ]; then
+    mkdir -p luci-app-uugamebooster
+    cp -rf ../../kiddin9/luci-app-uugamebooster/* luci-app-uugamebooster
+fi
+
 chmod -R a+x $GITHUB_WORKSPACE/scripts/preset-clash-core.sh
 if [ "$2" = "rk33xx" ] || [ "$2" = "rk33xx-23.05" ] || [ "$2" = "rk33xx-24.10" ]; then
     $GITHUB_WORKSPACE/scripts/preset-clash-core.sh arm64
@@ -392,6 +403,8 @@ echo "
 
 #Openclash
 CONFIG_PACKAGE_luci-app-openclash=y
+CONFIG_PACKAGE_luci-app-passwall=y
+CONFIG_PACKAGE_luci-app-ssr-plus=y
 " >> .config
 
 # 去广告应用
@@ -463,7 +476,7 @@ echo "
 # CONFIG_PACKAGE_luci-app-pushbot=y
 CONFIG_PACKAGE_luci-app-socat=y
 # CONFIG_PACKAGE_luci-app-unblockneteasemusic=y
-# CONFIG_PACKAGE_luci-app-uugamebooster=y
+CONFIG_PACKAGE_luci-app-uugamebooster=y
 # CONFIG_PACKAGE_luci-app-xlnetacc=y
 # CONFIG_PACKAGE_luci-udptools=y
 " >> .config
@@ -525,5 +538,6 @@ CONFIG_PACKAGE_procps-ng-ps=y
 # 额外组件
 echo "
 CONFIG_GRUB_IMAGES=y
-CONFIG_VMDK_IMAGES=y
+CONFIG_GRUB_EFI_IMAGES=y
+# CONFIG_VMDK_IMAGES is not set
 " >> .config
