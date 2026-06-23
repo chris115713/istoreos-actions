@@ -56,7 +56,6 @@ CONFIG_PACKAGE_miniupnpd-nftables=y
 
 # User requested proxy/game plugins.
 CONFIG_PACKAGE_luci-app-openclash=y
-CONFIG_PACKAGE_luci-app-passwall=y
 CONFIG_PACKAGE_luci-app-ssr-plus=y
 CONFIG_PACKAGE_luci-app-uugamebooster=y
 
@@ -92,7 +91,7 @@ CONFIG_PACKAGE_kmod-fs-vfat=y
 CONFIG_PACKAGE_kmod-fs-exfat=y
 CONFIG_PACKAGE_kmod-fs-ntfs3=y
 
-# Networking helpers often needed by OpenClash/PassWall/SSR-Plus.
+# Networking helpers often needed by OpenClash/SSR-Plus.
 CONFIG_PACKAGE_kmod-tun=y
 CONFIG_PACKAGE_kmod-nft-tproxy=y
 CONFIG_PACKAGE_kmod-nft-socket=y
